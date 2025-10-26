@@ -25,11 +25,11 @@ public:
             numEvents = displayEventReceiver->getEvents(buffer, kBufferSize);
             for (size_t i = 0; i < static_cast<size_t>(numEvents); i++) {
                 const auto& event = buffer[i];
-                if (event.header.type == DisplayEventReceiver::DISPLAY_EVENT_HOTPLUG) {
+                if (event.header.type == DisplayEventType::DISPLAY_EVENT_HOTPLUG) {
                     printf("Hotplug received: %s\n", event.hotplug.connected?"connected":"disconnected");
                 }
 
-                if(event.header.type == DisplayEventReceiver::DISPLAY_EVENT_VSYNC) {
+                if(event.header.type == DisplayEventType::DISPLAY_EVENT_VSYNC) {
                     printf("Vsync received: count=%d\t", event.vsync.count);
                     if (oldTimeStamp) {
                         float t = float(event.header.timestamp - oldTimeStamp) / s2ns(1);
@@ -40,7 +40,7 @@ public:
                     oldTimeStamp = event.header.timestamp;
                 }
 
-                if(event.header.type == DisplayEventReceiver::DISPLAY_EVENT_MODE_CHANGE) {
+                if(event.header.type == DisplayEventType::DISPLAY_EVENT_MODE_CHANGE) {
                     printf("Mode change received\n");
                 }
                 
